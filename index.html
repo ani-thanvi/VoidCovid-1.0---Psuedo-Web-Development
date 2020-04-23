@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>
+  CodeForVision Covid_1.0
+</title>
+<script type="text/javascript" src="index.js"></script>
+<link rel="stylesheet" type="text/css" href="index.css">
+</head>
+<body>
+<h1 align=center >Country</h1>
+<h2>Get all the latest updatest here </h2> 
+<div id="countries"></div>
+<script type="text/javascript">
+var link = new XMLHttpRequest();
+var url = "https://corona.lmao.ninja/v2/countries";
+
+link.onreadystatechange=function() {
+  if (this.readyState == 4 && this.status == 200) {
+    myFunction(this.responseText);
+  }
+}
+link.open("GET", url, true);
+link.send();
+function toggle() {
+ if( document.getElementById("hidethis").style.display=='none' ){
+   document.getElementById("hidethis").style.display = '';
+ }else{
+   document.getElementById("hidethis").style.display = 'none';
+ }
+}
+function myFunction(response) {
+  var arr = JSON.parse(response);
+  var i;
+  var print = "<center><table id="+"dtshow"+" >";
+  print += "<tr><th>S.no.</th><th>Country</th><th>Total Cases</th><th>Deaths</th><th>Total Deaths</th><th>Continent</th><th>Recovered</th><th>Country Info </th></tr>";
+  for(i = 0; i < arr.length; i++) {
+    print += "<tr><td>" +
+    (i+1)+"</td><td>" +
+    arr[i].country + "</td><td>" +
+    arr[i].todayCases+ "</td><td>"+
+    arr[i].deaths+ "</td><td>"+
+    arr[i].todayDeaths+ "</td><td>"+
+    arr[i].continent+"</td><td>"
+    +
+    arr[i].recovered+ "</td><td>"+"<img src="+  
+    arr[i].countryInfo.flag +">"+ "</td></tr>";
+  }
+  print += "</table</center>";
+  document.getElementById("countries").innerHTML = print;
+}
+</script>
+</body>
+</html>
